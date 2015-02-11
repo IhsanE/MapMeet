@@ -1,0 +1,54 @@
+<script src="/angular.js"></script>
+<html ng-app = "" ng-init = "p1='';p2=''">
+    	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Register</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="/styles/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="/styles/styles.css" rel="stylesheet">
+	</head>
+
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center">Login</h1>
+      </div>
+      <div class="modal-body">
+
+    <form  class="form col-md-12 center-block"  name = "register" method = "post" action = "/register" accept-charset = "utf-8">
+            <div class="form-group">
+                <input class="form-control input-lg" type="text" name="first_name" id="first_name" placeholder="First name" required="true">
+            </div>
+            <div class="form-group">
+		 <input type="text" name="last_name" id="last_name" placeholder="Last name" required  class="form-control input-lg">
+            </div>
+	    <div class="form-group">
+                <input class="form-control input-lg" type="text" name="username" id="username" placeholder="username" required>
+            </div>
+<div class="form-group">
+ <input class="form-control input-lg" ng-model = "p1" type="password" name="password" id="password" placeholder="password" required>
+            </div>
+<div class="form-group">
+ <input class="form-control input-lg" ng-model = "p2" type="password" name="confirm-password" id="confirm-password" placeholder="confirm-password" required>
+                <p ng-hide = "p1==p2" style="color:#FF0000">Password does not match</p>
+            </div>
+            <div class="form-group">
+
+<input class="btn btn-primary btn-lg btn-block" type = "submit" value = "Register" name = "register" ng-disabled = "p1!=p2 || p1 == '' || p2 == ''">
+
+            </div>
+</form>
+  </div>
+  </div>
+</div>
+    </div>
+    	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+</html>

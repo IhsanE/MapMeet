@@ -1,0 +1,35 @@
+Users
+	
+	User_One
+	
+		user-name : c3etwaro
+		password : ******
+		first-name : Ihsan
+		last-name : Etwaroo
+		friends : [
+				   "friend1",
+				   "friend2",
+				   "friend3",
+					  ...
+				   "friendn"
+				  ]
+		requests : [
+					"friend1",
+					"friend2",
+					"friend3",
+					   ...
+					"friendn"
+					]
+
+
+
+
+User1 O                  User2 O
+
+Turns Blue   - - - - >   Turns Blue ==> Opens Connection
+
+	1. User 2 OFFLINE/CLICKS --> User 1 TURN OFF BLUE ==> Close Connection
+	
+	2. USER 1 OFFLINE/CLICKS --> User 2 TURN OFF BLUE ==> Close Connection
+
+	

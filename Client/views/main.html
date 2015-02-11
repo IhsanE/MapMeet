@@ -1,0 +1,111 @@
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="/js/socket.io-client/socket.io.js"></script>
+<script src="/angular.js"></script>
+<script src="/app/app.js"></script>
+<script src="/js/sideBarNav.js"></script>
+<script src="/js/main.js"></script>
+<script src="/app/controllers/mainController.js"></script>
+<script src="/app/controllers/friendMapViewController.js"></script>
+<link rel="stylesheet" type="text/css" href="/styles/sideBarStyle.css">
+<link rel="stylesheet" type="text/css" href="/styles/add_user.css">
+<link rel="stylesheet" type="text/css" href="/styles/circle_display_picture.css">
+<html ng-app = "mainApp" ng-controller = "mainCtrl" ng-init = "showOnline = 's'; showOffline = 'd'; deleteOnline1 = 'grey'; deleteOnline2 = 'grey'; addHoverChangeImage = 'white'; checkMarkCol = 'grey'; cancelMarkCol = 'grey'; showNotif = 's'; displayPicture = 'empty_display_picture.png'">
+    <head>
+        <title>
+            {{userName}}
+        </title>
+    </head>
+    <body>
+        <div class = "sideBarContainer open-sidebar" >
+            <div id="sidebar">
+                <a href="#" onclick="changeDisplayPicture()">
+                    <img src="/displayPictures/{{displayPicture}}" id="circle">
+                </a>
+                <ul>
+                    <li><a ng-click="showOnline = {'s':'d','d':'s'}[showOnline]" href="#">Online Friends ({{onlineCount()}})</a></li>
+                    <li ng-repeat="(name, object) in userData.onlineFriends track by name" ng-show = "showOnline == 's'">
+                        <a href="#" ng-init='init()' ng-controller = "friendMapViewCtrl" ng-click = "friendConnectRequest(name)" class="onlineFriendName" id="{{name}}">
+                            <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
+                            {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
+                        <img id="garbageCan" ng-click="removeFriend(name)" href="#" ng-mouseenter = "deleteOnline1 = {'grey':'red','red':'grey'}   [deleteOnline1]" ng-mouseleave = "deleteOnline1 = {'grey':'red','red':'grey'}   [deleteOnline1]"
+                             src="/images/trash_{{deleteOnline1}}.png" width = "80px" height = "70px">
+                       
+                    </li>
+                    <li><a ng-click="showOffline = {'s':'d','d':'s'}[showOffline]" href="#">Offline Friends ({{offlineCount()}})</a>    </li>
+                    <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'">
+                        <a href="#" id="offlineFriendName">
+                            <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
+                            {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
+                        <img id="garbageCan" ng-click="removeFriend(name)" href="#" ng-mouseenter = "deleteOnline2 = {'grey':'red','red':'grey'}[deleteOnline2]" ng-mouseleave = "deleteOnline2 = {'grey':'red','red':'grey'}[deleteOnline2]"
+                             src="/images/trash_{{deleteOnline2}}.png" width = "80px" height = "70px">
+                        
+                    </li>
+                    <li><a ng-click="showNotif = {'s':'d','d':'s'}[showNotif]" href="#">Friend Requests (0)</a></li>
+                    <li ng-repeat="name in userData.friendRequests track by name" ng-show = "showNotif == 's'">
+                        <a href="#" id="friendRequest">{{name}}</a>
+                        <a id="checkFriend" ng-click="acceptFriendRequest(name)" href="#" ng-mouseenter = "checkMarkCol = {'grey':'green','green':'grey'}   [checkMarkCol]" ng-mouseleave = "checkMarkCol = {'grey':'green','green':'grey'}   [checkMarkCol]">
+                            <img src="/images/checkmark_{{checkMarkCol}}.png" width = "60px" height = "53px">
+                        </a>
+                        <a id="cancelFriend" ng-click="refuseFriendRequest(name)" href="#" ng-mouseenter = "cancelMarkCol = {'grey':'red','red':'grey'}   [cancelMarkCol]" ng-mouseleave = "cancelMarkCol = {'grey':'red','red':'grey'}   [cancelMarkCol]">
+                            <img src="/images/cancel_{{cancelMarkCol}}.png" width = "60px" height = "53px">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="toggleButton">
+                <a href="#" data-toggle=".sideBarContainer" id="sidebar-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <a href="#" data-toggle=".sideBarContainer" id="add-user" onClick="showBox()" ng-mouseenter = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]" ng-mouseleave = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]">
+                    <img src="/images/add_{{addHoverChangeImage}}.png"  width = "42px" height = "42px">
+                </a>
+                <div class = "map-container">
+                    <div id="map-canvas"></div>
+                </div>
+            </div>
+        </div>
+        <div id="light" class="white_content">
+		<form name = "addUser" method = "post" action = "/addUser" accept-charset = "utf-8">
+			<input type="text" name="user_name" id="user_name" placeholder="username" required="true">
+			<input type = "submit" value = "addUser" name = "addUser" onclick = "hideBox()">			  
+        </form>
+		<a  href="#" onclick = "hideBox()">Close
+		</a>
+	</div>
+        <div id = "lightDP" class = "white_content">
+            <form method="post" action="/displayImageUpload" name="submit" enctype="multipart/form-data">
+                <input type="file" name="fileField"><br /><br />
+                <input type="submit" name="submit" value="Submit">
+            </form>
+            <a  href="#" onclick = "hideDisplayPictureBox()">Close</a>
+        </div>
+        <div id="fade" class="black_overlay"></div>
+    </body>
+</html>
+<script>
+function showBox() {
+document.getElementById('light').style.display='block';
+document.getElementById('fade').style.display='block';
+}
+
+function hideBox(){
+document.getElementById('light').style.display='none';
+document.getElementById('fade').style.display='none';
+}
+    
+function changeDisplayPicture() {
+document.getElementById('lightDP').style.display='block';
+document.getElementById('fade').style.display='block';
+}
+
+function hideDisplayPictureBox(){
+document.getElementById('lightDP').style.display='none';
+document.getElementById('fade').style.display='none';
+}
+</script>

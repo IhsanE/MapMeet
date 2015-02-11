@@ -1,0 +1,16 @@
+<html>
+    <form name = "login" method = "post" action = "/login" accept-charset = "utf-8">
+        <ul>
+            <li>
+                <input type="text" name="username" id="username" placeholder="username" required>
+            </li>
+            <li>
+                <input type="text" name="password" id="password" placeholder="password" required>
+            </li>
+            <li>
+                <input type = "submit" value = "Login" name = "login">
+            </li>
+        </ul>
+        
+    </form>
+</html>

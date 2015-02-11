@@ -1,0 +1,23 @@
+<script src="/angular.js"></script>
+<html ng-app = "" ng-controller = "mainController">
+    <head>
+        <title>
+            {{username}}
+        </title>
+    </head>
+    <body>
+        <p>
+            {{username}}
+        </p>
+    </body>
+    <script>
+        function mainController($scope, $http){
+            $http.post("/rTest")
+            .success(function(response) {
+                console.log(response);
+                $scope.username = response.username;
+            });    
+            
+        }
+    </script>
+</html>

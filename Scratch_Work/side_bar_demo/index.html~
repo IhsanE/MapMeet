@@ -1,0 +1,29 @@
+<html>
+<link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<div class="sideBarContainer"> /
+    <div id="sidebar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li style = "text-align: center;"><a href="#">Explore</a></li>
+            <li><a href="#">Users</a></li>
+                <li><a href="#">Sign Out</a></li>
+        </ul>
+    </div>
+    <div class="toggleButton">
+        <a href="#" data-toggle=".sideBarContainer" id="sidebar-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+  $("[data-toggle]").click(function() {
+    var toggle_el = $(this).data("toggle");
+    $(toggle_el).toggleClass("open-sidebar");
+  });
+});
+</script>
+</html>

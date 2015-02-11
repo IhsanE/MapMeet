@@ -1,0 +1,74 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="/js/socket.io-client/socket.io.js"></script>
+<script src="/angular.js"></script>
+<script src="/app/app.js"></script>
+<script src="/js/sideBarNav.js"></script>
+<script src="/js/main.js"></script>
+<script src="/app/controllers/mainController.js"></script>
+<link rel="stylesheet" type="text/css" href="/styles/sideBarStyle.css">
+<link rel="stylesheet" type="text/css" href="/styles/add_user.css">
+<html ng-app = "mainApp" ng-controller = "mainCtrl" ng-init = "showOnline = 's'; showOffline = 'd'; deleteOnline1 = 'grey'; deleteOnline2 = 'grey'; addHoverChangeImage = 'white'">
+    <head>
+        <title>
+            {{userName}}
+        </title>
+    </head>
+    <body>
+        <div class = "sideBarContainer">
+            <div id="sidebar">
+                <ul>
+                    <li><a ng-click="showOnline = {'s':'d','d':'s'}[showOnline]" href="#">Online Friends ({{userData.onlineFriends.length}})</a></li>
+                    <li ng-repeat="name in userData.onlineFriends track by name" ng-show = "showOnline == 's'">
+                        <a href="#" id="onlineFriendName">{{name}}</a>
+                        <a id="garbageCan" ng-click="removeFriend()" href="#" ng-mouseenter = "deleteOnline1 = {'grey':'red','red':'grey'}   [deleteOnline1]" ng-mouseleave = "deleteOnline1 = {'grey':'red','red':'grey'}   [deleteOnline1]">
+                            <img src="/images/trash_{{deleteOnline1}}.png" width = "20px" height = "18px">
+                        </a>
+                    </li>
+                    <li><a ng-click="showOffline = {'s':'d','d':'s'}[showOffline]" href="#">Offline Friends ({{userData.offlineFriends.length}})</a>    </li>
+                    <li ng-repeat = "name in userData.offlineFriends track by name" ng-show = "showOffline == 's'">
+                        <a href="#" id="offlineFriendName">{{name}}</a>
+                        <a id="garbageCan" ng-click="removeFriend()" href="#" ng-mouseenter = "deleteOnline2 = {'grey':'red','red':'grey'}[deleteOnline2]" ng-mouseleave = "deleteOnline2 = {'grey':'red','red':'grey'}[deleteOnline2]">
+                            <img src="/images/trash_{{deleteOnline2}}.png" width = "20px" height = "18px">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="toggleButton">
+                <a href="#" data-toggle=".sideBarContainer" id="sidebar-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <a href="#" id="add-user" onClick="showBox()" ng-mouseenter = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]" ng-mouseleave = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]">
+                    <img src="/images/add_{{addHoverChangeImage}}.png"  width = "42px" height = "42px">
+                </a>
+            </div>
+            
+        </div>
+        
+
+        <div id="light" class="white_content">
+		<form name = "addUser" method = "post" action = "/addUser" accept-charset = "utf-8">
+			<input type="text" name="user_name" id="user_name" placeholder="username" required="true">
+			<input type = "submit" value = "addUser" name = "addUser">			  
+    		</form>
+		<a  href="#" onclick = "hideBox()">Close
+		</a>
+	</div>
+        <div id="fade" class="black_overlay"></div>
+
+
+    </body>
+</html>
+
+<script>
+function showBox() {
+document.getElementById('light').style.display='block';
+document.getElementById('fade').style.display='block';
+}
+
+function hideBox(){
+document.getElementById('light').style.display='none';
+document.getElementById('fade').style.display='none';
+}
+</script>

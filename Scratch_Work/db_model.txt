@@ -1,0 +1,55 @@
+Users
+	
+	User_One
+	
+		user-name : c3etwaro
+		password : ******
+		first-name : Ihsan
+		last-name : Etwaroo
+		friends : [
+				   "friend1",
+				   "friend2",
+				   "friend3",
+					  ...
+				   "friendn"
+				  ]
+		requests : [
+					"friend1",
+					"friend2",
+					"friend3",
+					   ...
+					"friendn"
+					]
+
+
+
+
+User1 O                  User2 O
+
+Turns Blue   - - - - >   Turns Blue ==> Opens Connection 
+
+	1. User 2 OFFLINE/CLICKS --> User 1 TURN OFF BLUE ==> Close Connection
+	
+	2. USER 1 OFFLINE/CLICKS --> User 2 TURN OFF BLUE ==> Close Connection
+
+
+markerMap = { <user_name> : <marker> }
+
+mapUpdateMarkerPosition(marker, lat, long){
+	marker.setPosition(new google.maps.LatLng(lat, long));
+}
+
+mapAddConnectedMarker(user_name, lat, long, map){
+	marker = new google.maps.Marker({
+		position : new google.maps.LatLng(lat, long),
+		user : user_name,
+		map : map,
+		title : user_name // Should be the First/Last name
+	});
+	markerMap[user_name] : marker;
+}
+
+mapRemoveConnectedMarker(user_name){
+	markerMap[user_name].setMap(null);
+	delete markerMap[user_name];
+}

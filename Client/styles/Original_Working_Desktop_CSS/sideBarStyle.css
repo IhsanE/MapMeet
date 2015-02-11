@@ -1,0 +1,145 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow:hidden;
+    font-family: helvetica;
+    font-weight: 100;
+}
+
+html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+
+.sideBarContainer {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    -webkit-transition:  left 0.4s ease-in-out;
+    -moz-transition:  left 0.4s ease-in-out;
+    -ms-transition:  left 0.4s ease-in-out;
+    -o-transition:  left 0.4s ease-in-out;
+    transition:  left 0.4s ease-in-out;
+}
+ 
+.sideBarContainer.open-sidebar {
+    left:15em;
+}
+ 
+#sidebar {
+    position: absolute;
+    left: -15em;
+    background: #252523;
+    width: 15em;
+    height: 100%;
+    box-sizing: border-box;
+}
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#sidebar ul li {
+    margin: 0;
+    width : 100%;
+}
+#sidebar ul li a {
+    padding: 0.938em 1.250em;
+    font-size: 1em;
+    font-weight: 100;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 0.063em solid #000000;
+    -webkit-transition:  background 0.3s ease-in-out;
+    -moz-transition:  background 0.3s ease-in-out;
+    -ms-transition:  background 0.3s ease-in-out;
+    -o-transition:  background 0.3s ease-in-out;
+    transition:  background 0.3s ease-in-out;
+}
+#sidebar ul li:hover a {
+    background: #3B3B39;
+}
+.toggleButton {
+    width: 100%;
+    height: 100%;
+    padding: 0.625em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+}
+.toggleButton .content{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+padding-left: 3.750em;
+width: 100%;
+}
+.toggleButton .content h1{
+    font-weight: 100;
+}
+.toggleButton .content p{
+    width: 100%;
+    line-height: 160%;
+}
+.toggleButton #sidebar-toggle {
+    background: #252523;
+    border-radius: 0.188em;
+    display: block;
+    position: relative;
+    padding: 0.625em 0.625em;
+    float: left;
+}
+.toggleButton #sidebar-toggle .bar{
+    display: block;
+    width: 1.125em;
+    margin-bottom: 0.188em;
+    height: 0.125em;
+    background-color: #fff;
+    border-radius: 0.063em;   
+}
+.toggleButton #sidebar-toggle .bar:last-child{
+     margin-bottom: 0;   
+}
+
+#add-user {
+ position: fixed;
+    float: left;
+    margin-top: 3em;
+    margin-left: -0.313em;
+ display: list-item;
+    
+ 
+ 
+}
+
+#garbageCan {
+    float: right;
+    width: 5%;
+    height: 1.563em;
+}
+
+.onlineFriendName {
+    width : 61.5%;
+    font-size: 1.250em;
+}
+
+#offlineFriendName {
+width : 61.5%;
+    font-size: 1.250em;
+}
+
+#friendRequest {
+width : 45.7%;
+}
+
+#cancelFriend {
+float: right;
+width : 2%
+}
+
+#checkFriend {
+float: right;
+width : 2%
+}

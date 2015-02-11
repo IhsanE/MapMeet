@@ -1,0 +1,28 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="app/Angular.js"></script>
+<html ng-app = "addUser" ng-init="username = ''">
+ <p>This is the main content. To display a lightbox click <a href="#" onclick = "showBox()">here</a></p>
+        <div id="light" class="white_content">
+
+		<form name = "register" method = "post" action = "/register" accept-charset = "utf-8">
+			<input type="text" name="user_name" id="user_name" placeholder="username" required="true" ng-model="username">
+			<input type = "submit" value = "addUser" name = "addUser" ng-disabled = "username != ''">			  
+    		</form>
+
+		<a  href="#" onclick = "hideBox()">Close
+		</a>
+	</div>
+        <div id="fade" class="black_overlay"></div>
+</html>
+
+<script>
+function showBox() {
+document.getElementById('light').style.display='block';
+document.getElementById('fade').style.display='block';
+}
+
+function hideBox(){
+document.getElementById('light').style.display='none';
+document.getElementById('fade').style.display='none';
+}
+</script>

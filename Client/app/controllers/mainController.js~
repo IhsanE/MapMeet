@@ -1,0 +1,8 @@
+mainApp.controller('mainCtrl', function($scope, $http){
+    console.log("Inside of mainCtrl");
+    $http.post("/loginSuccess")
+            .success(function(response) {
+                console.log(response);
+		$scope.userData = response;
+            });  
+});

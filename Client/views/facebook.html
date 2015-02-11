@@ -1,0 +1,145 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+<html  ng-app = "fbApp" ng-controller = "mc" id = "asdf">
+    
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+    
+    
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      angular.element(document.getElementById('asdf')).scope().testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+    }
+  }
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1418268441798742',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.1
+  });
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+    
+    
+    angular.module('fbApp', []).controller('mc',  ['$scope', '$http', '$timeout', '$rootScope',function($scope, $http, $timeout, $rootScope){
+    
+    
+
+    
+  $scope.testAPI = function (){
+      /*
+      FB.api('/me/picture', {'redirect' : false, 'height' : '200', 'type' : 'normal', 'width' : '200'},function(response){
+        console.log(response);
+        console.log(response.data.url);
+        FB.api('/me/friends', {'redirect' : false, 'height' : '200', 'type' : 'normal', 'width' : '200'},function(response){
+          for (var i = 0; i < response.data.length; i ++){
+            FB.api('/'+response.data[i].id+'/picture', {'redirect' : false, 'height' : '200', 'type' : 'normal', 'width' : '200'},function(response){
+                console.log(response.data.url);
+            });
+          }
+        }); 
+      });
+      */
+    FB.api('/me', function(response) {
+        console.log(response.id);
+        var id = response.id;
+        var fn = (response.name.split(" "))[0];
+        var ln = (response.name.split(" "))[1];
+        console.log(fn);
+        console.log(ln);
+        $http.post("/checkFirstTimeFacebookLogin" , {user_name : response.id, first : fn, last : ln}).success(function(response){
+                console.log(response);
+                if (response === "first"){
+                    FB.api('/me/friends', function(response) {
+                        var friend_dict = {};
+                        for (var i =0; i < response.data.length; i++){
+                            friend_dict[response.data[i].id] = response.data[i].name;
+                        }
+                        console.log(friend_dict);
+                        FB.api('/me/picture', {'redirect' : false, 'height' : '200', 'type' : 'normal', 'width' : '200'},function(response){
+                            console.log(response);
+                            console.log(response.data.url);
+                            $http.post("/setFaceBookFriends" , {user_name : id, friends : friend_dict, display_picture : response.data.url}).success(function(response){
+                                window.location.assign('/views/main.html');
+                                // Everything's handled :)
+                            });
+                        });
+                    });     
+                }
+                else {
+                    
+                    window.location.assign('/views/main.html');
+                    // Do nothing because : 
+                    //  1. Server handled loading friends already
+                    //  2. When a new friend signs up, server cross checks friend list to see if anyone is already on the app
+                    //  3. Server will redirect to signing in and carrying on to main.html
+                    //
+                    
+                }
+            });
+    });
+    
+  }
+        
+        }]);
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+<fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
+</fb:login-button>
+<div id="status">
+</div>
+</body>
+</html>
