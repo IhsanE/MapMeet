@@ -485,12 +485,9 @@ app.post('/connectSocketConnection', function(req, res){
     res.end();
 });
 
-app.get('/login', restrict, function(request, response){
-	response.sendfile('/home/ihsan/bower_components/angular/angular.js');
-});
 
 app.get('/angular.js', restrict, function(request, response){
-	response.sendfile("/home/ihsan/bower_components/angular/angular.js");
+	response.sendfile(__dirname + '/Client/js/bower_components/angular/angular.js');
 });
 
 app.get('/friendRequestList', restrict, function(request, response){
@@ -510,7 +507,7 @@ app.post('/racceptFriendNotification', function(req, res){
 
 app.post('/loginSuccess', function(req, res){
     res.statusCode = 200;
-    var files = fs.readdirSync('/home/ihsan/Documents/Web_Projects/Test_App/Client/displayPictures/');
+    var files = fs.readdirSync(__dirname + '/Client/displayPictures/');
     var displayName = "F";
     for (var i in files){
         if (files[i].substring(0, files[i].length-4) == req.session.user){
