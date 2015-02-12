@@ -8,7 +8,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 app.use(busboy());
-app.use(bodyParser());  
+app.use(bodyParser());
 app.use(cookieParser("This is a secret"));
 app.use(session({secret: "This is a secret", key: "express.sid"}));
 app.use(express.static(__dirname + "/Client/"));
@@ -17,7 +17,7 @@ var socketRooms = {};
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-
+var uri = 'mongodb://fastftw:toogood4u@ds049537.mongolab.com:49537/map_meet';
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -29,7 +29,7 @@ server.listen(app.get('port'), function () {
 
 
 function getUserDisplayPicture (username, ret){
-    MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -51,7 +51,7 @@ function getUserDisplayPicture (username, ret){
 *@return : JSON, user that was queried
 */
 function readByUsername (username, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -71,7 +71,7 @@ function readByUsername (username, ret) {
 *@return : JSON, user that was admitted
 */
 function insert (record, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -84,7 +84,7 @@ function insert (record, ret) {
 }
 
 function userExists (username, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -104,7 +104,7 @@ function userExists (username, ret) {
 *@return : int, number of users removed
 */
 function remove (username, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -117,7 +117,7 @@ function remove (username, ret) {
 
 
 function getFirstLastName (username, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -135,7 +135,7 @@ function getFirstLastName (username, ret) {
 *@return : int, number of users removed
 */
 function update (username, user, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
 			var collection = db.collection('Users');
@@ -186,7 +186,7 @@ function confirmFriend (username, friendUserName, ret) {
 *@return : int, number of users removed
 */
 function addFriend (username, friendUserName, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -198,13 +198,13 @@ function addFriend (username, friendUserName, ret) {
                 }
                 else ret(null);
 			});
-            
+
   		}
 	});
 }
 
 function insertFriend (username, friendUserName, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -217,7 +217,7 @@ function insertFriend (username, friendUserName, ret) {
                 }
                 else ret(null);
 			});
-            
+
   		}
 	});
 }
@@ -225,7 +225,7 @@ function insertFriend (username, friendUserName, ret) {
 
 
 function updateDisplayPicture (username, filename,ret){
-    MongoClient.connect("mongodb://localhost:27017/Test_App", function (err, db){
+    MongoClient.connect(uri, function (err, db){
         if (!err){
             console.log("We are connected");
             console.log(username + " we are adding a display picture to him");
@@ -250,7 +250,7 @@ function updateDisplayPicture (username, filename,ret){
 *@return : int, number of users removed
 */
 function removeFriendRequest (username, friendUserName, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -261,7 +261,7 @@ function removeFriendRequest (username, friendUserName, ret) {
                 }
                 else ret(null);
 			});
-            
+
   		}
 	});
 }
@@ -273,7 +273,7 @@ function removeFriendRequest (username, friendUserName, ret) {
 *@return : int, number of users removed
 */
 function removeUser (username, friendname, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -289,14 +289,14 @@ function removeUser (username, friendname, ret) {
                 }
                 else ret(null);
 			});
-            
+
   		}
 	});
-}                        
+}
 
 // ADDS A FRIEND TO BOTH THE USERNAME, AND THE FRIENDUSERNAME
 function acceptFriendRequest (username, friendUserName, ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -313,14 +313,14 @@ function acceptFriendRequest (username, friendUserName, ret) {
                 }
                 else ret(null);
 			});
-            
+
   		}
 	});
 }
 
 
 function friendRequestList (username,  ret) {
-	MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if(!err) {
 	    	console.log("We are connected");
             console.log(username);
@@ -330,7 +330,7 @@ function friendRequestList (username,  ret) {
                 requests['displayPicture'] = result.displayPicture;
                 ret(requests);
             });
-            
+
   		}
 	});
 }
@@ -369,7 +369,7 @@ app.post('/displayImageUpload', function(req, res) {
             });
             res.redirect("/views/main.html");
         });
-        
+
     });
 });
 
@@ -390,7 +390,7 @@ app.post('/cancelSocketConnection', function(req, res){
         if (socketRooms[friend] in io.sockets.connected)
             if (user in io.sockets.connected[socketRooms[friend]].connectedFriends)
                 delete io.sockets.connected[socketRooms[friend]].connectedFriends[user];
-    
+
     if (user in socketRooms)
         if (socketRooms[user] in io.sockets.connected)
             if (friend in io.sockets.connected[socketRooms[user]].connectedFriends)
@@ -400,7 +400,7 @@ app.post('/cancelSocketConnection', function(req, res){
 });
 
 app.post('/setFaceBookFriends', function(req, res){
-    
+
     user = req.body.user_name;
     console.log('Setting up friends and stuff');
     console.log(user);
@@ -409,31 +409,31 @@ app.post('/setFaceBookFriends', function(req, res){
     displayPicture = req.body.display_picture;
     for (var id in friends){
         console.log(id);
-        
-            
+
+
                 insertFriend(user, id, function (result){
                     console.log(result)
                 });
                 insertFriend(id, user, function (result){
                     console.log(result);
-                });    
-            
-        
-        
+                });
+
+
+
     }
     var download = function(uri , callback){
                             request.head(uri, function(err, res, body){
     request(uri).pipe(fs.createWriteStream(__dirname + '/Client/displayPictures/' + user + ".jpg")).on('close', callback);
-                                        }); 
+                                        });
                             };
     download(displayPicture, function(){
         console.log("Done uploading Facebook Picture");
-        
+
         updateDisplayPicture(user, user+".jpg", function(){
         res.statusCode = 200;
         res.end();
         })
-        
+
     });
 
 });
@@ -446,7 +446,7 @@ app.post('/checkFirstTimeFacebookLogin', function(req, res){
     ln = req.body.last;
     userExists (user, function(result){
         if (result === 1){ // They're already in
-            req.session.user = user;	
+            req.session.user = user;
             res.statusCode = 200;
             console.log("you're in already, stop trying to register!!!");
             res.redirect("/views/main.html");
@@ -513,7 +513,7 @@ app.post('/loginSuccess', function(req, res){
     var files = fs.readdirSync('/home/ihsan/Documents/Web_Projects/Test_App/Client/displayPictures/');
     var displayName = "F";
     for (var i in files){
-        if (files[i].substring(0, files[i].length-4) == req.session.user){ 
+        if (files[i].substring(0, files[i].length-4) == req.session.user){
             displayName = files[i].substring(files[i].length-4, files[i].length); console.log(displayName);}
     }
 	res.send(req.session.user + " " + displayName );
@@ -524,11 +524,11 @@ app.post('/login', function(req, res){
     console.log(req.body);
 	var username = req.body.username;
 	readByUsername(username, function(result){
-		if (result != null){  
+		if (result != null){
             console.log(result.password);
             console.log(req.body.password);
 			if (result.password == req.body.password){
-				req.session.user = username;	
+				req.session.user = username;
                 //req.session.userDetails = result;
 				res.statusCode = 200;
                 console.log("you're in");
@@ -570,7 +570,7 @@ app.post('/removeFriend', function(req, res){
     res.statusCode = 200;
     res.write(result);
     res.end();
-    }); 
+    });
 });
 
 app.post('/addUser', function(req, res){
@@ -580,7 +580,7 @@ app.post('/addUser', function(req, res){
         io.to(socketRooms[req.body.user_name.trim()]).emit("friendshipRequestedJIT", {user_name : req.session.user});
     }
     res.statusCode = 200;
-    
+
     });
 });
 
@@ -609,7 +609,7 @@ app.post('/acceptFriendRequest',  function(req, res){
             console.log(isFriendOnline);
             res.write(isFriendOnline);
             res.end();
-            // ADD A PUSH NOTIFICATION SYSTEM VIA SOCKET.IO 
+            // ADD A PUSH NOTIFICATION SYSTEM VIA SOCKET.IO
         });
     });
 });
@@ -623,40 +623,40 @@ io.on('connection', function (socket){
         console.log("line 480");
         if (data.id == 'updateFriends'){
             if (!(data.user_name in socketRooms)){
-                socket.join(data.user_name);        
+                socket.join(data.user_name);
                 socketRooms[data.user_name] = socket.id;
             }
             console.log(data.user_name + "  :  " + socket.id);
-            
-            
+
+
             readByUsername(data.user_name, function(result){
                 var oofflineFriends = {};
                 var oonlineFriends = {};
                 var friends = result.friends;
                 var fn = result.first_name;
                 var ln = result.last_name;
-         
+
                 function iterateElements (friends, i, callback){
                     if (i == friends.length)
                         return callback();
-                    
+
                     var friend = {};
                         friend.user_name = friends[i];
                     getUserDisplayPicture(friend.user_name, function(item){
                         getFirstLastName(friend.user_name, function(rr){
                             console.log(rr);
-                            
+
                             friend.first_name = rr ? rr['first_name'] : "Won't"  ;
                             friend.last_name  = rr ? rr['last_name'] : "Show";
-                            
-                            
+
+
                         if (item){
                             friend.display_picture = item['displayPicture'];
                         }
                         else{
                             friend.display_picture = 'empty_display_picture.png';
                         }
-                    
+
                     console.log(friend);
                     if (friend.user_name in socketRooms){
                         oonlineFriends[friend.user_name] = friend;
@@ -674,14 +674,14 @@ io.on('connection', function (socket){
                     onlineFriends : oonlineFriends,
                     offlineFriends : oofflineFriends
                 };
-                
+
                 var NOTIFY = {
                     id : "friendAppearOnline",
                     user_name : data.user_name,
                     first_name : fn,
                     last_name : ln,
                     displayPicture : result.displayPicture
-                            
+
                 };
                 if (oonlineFriends != null){
                 for (var i in oonlineFriends){
@@ -694,7 +694,7 @@ io.on('connection', function (socket){
                 });
             });
         }
-        
+
         else if (data.id === 'notifyFriendsOfLocationChange'){
             for (var friend in socket.connectedFriends){
                 console.log(friend);
@@ -703,7 +703,7 @@ io.on('connection', function (socket){
             }
         }
     });
-    
+
      socket.on('disconnect', function () {
          var userNameKeys = Object.keys(socketRooms);
          var userName;
@@ -718,8 +718,8 @@ io.on('connection', function (socket){
                                     var dp = result.displayPicture;
                                     }
                 else{ var friends = null; var dp = 'empty_display_picture.png';}
-                
-             
+
+
                 if (friends != null){
                 for (var i = 0; i < friends.length; i ++){
                     var friend = friends[i];
