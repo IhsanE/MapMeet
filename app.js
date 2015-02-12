@@ -11,14 +11,22 @@ app.use(busboy());
 app.use(bodyParser());  
 app.use(cookieParser("This is a secret"));
 app.use(session({secret: "This is a secret", key: "express.sid"}));
-//app.use(express.static(__dirname + "/Client/"));
-process.env.PWD = process.cwd()
-app.use(express.static(process.env.PWD + '/Client/'));
+app.use(express.static(__dirname + "/Client/"));
 var MongoClient = require('mongodb').MongoClient;
 var socketRooms = {};
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(3000);
+
+
+
+app.set('port', (process.env.PORT || 3000));
+
+server.listen(app.get('port'), function () {
+
+    console.log("Node app is running at localhost:" + app.get('port'));
+});
+
+
 
 function getUserDisplayPicture (username, ret){
     MongoClient.connect("mongodb://localhost:27017/Test_App", function(err, db) {
