@@ -490,6 +490,10 @@ app.get('/angular.js', restrict, function(request, response){
 	response.sendfile(__dirname + '/Client/js/bower_components/angular/angular.js');
 });
 
+app.get('/robots.txt', restrict, function(request, response){
+	response.sendfile(__dirname + '/Client/app/robots.txt');
+});
+
 app.get('/friendRequestList', restrict, function(request, response){
 	var username = request.session.user;
     friendRequestList (username, function(result){
