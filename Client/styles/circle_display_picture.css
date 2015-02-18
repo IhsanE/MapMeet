@@ -17,3 +17,8 @@
     float: left;
     margin-right: 15px;
 }
+
+html, body, #map-canvas {
+        height: 100%;
+        padding: 0px
+      }
