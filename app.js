@@ -485,6 +485,9 @@ app.post('/connectSocketConnection', function(req, res){
     res.end();
 });
 
+app.get('/home', restrict, function(request, response){
+	response.sendfile(__dirname + '/Client/views/personalSite.html');
+});
 
 app.get('/', restrict, function(request, response){
 	response.sendfile(__dirname + '/Client/views/personalSite.html');
