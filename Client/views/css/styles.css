@@ -1,5 +1,5 @@
 /* custom template */
-html, body {
+html, body, #map-canvas {
    height: 100%;
    font-family:verdana,arial,sans-serif;
    color:#555555;
