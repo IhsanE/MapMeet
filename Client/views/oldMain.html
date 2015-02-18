@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>Faceboot - A Facebook style template for Bootstrap</title>
-		<meta name="generator" content="Bootply" />
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="mobile-web-app-capable" content="yes">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script src="/js/socket.io-client/socket.io.js"></script>
 <script src="/angular.js"></script>
@@ -19,34 +13,16 @@
 <link rel="stylesheet" type="text/css" href="/styles/sideBarStyle.css">
 <link rel="stylesheet" type="text/css" href="/styles/add_user.css">
 <link rel="stylesheet" type="text/css" href="/styles/circle_display_picture.css">
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link href="css/styles.css" rel="stylesheet">
-<html lang="en" ng-app = "mainApp" ng-controller = "mainCtrl" ng-init = "showOnline = 's'; showOffline = 'd'; deleteOnline1 = 'grey'; deleteOnline2 = 'grey'; addHoverChangeImage = 'white'; checkMarkCol = 'grey'; cancelMarkCol = 'grey'; showNotif = 's'; displayPicture = 'empty_display_picture.png'">
-	<head>
-	</head>
-	<body>
-<div class="wrapper">
-    <div class="box">
-        <div class="row row-offcanvas row-offcanvas-left">
-                      
-          
-            <!-- sidebar -->
-            <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
-              
-              	<ul class="nav">
-          			<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
-            	</ul>
-               
-                
-                <ul class="list-unstyled hidden-xs" id="sidebar-footer">
-                    <li>
-                      <a href="#"><h3>MapMeet</h3> <i class="glyphicon glyphicon-heart-empty"></i> Ihsan Etwaroo</a>
-                    </li>
-                </ul>
-              
-            <a href="#" onclick="changeDisplayPicture()">
+<html ng-app = "mainApp" ng-controller = "mainCtrl" ng-init = "showOnline = 's'; showOffline = 'd'; deleteOnline1 = 'grey'; deleteOnline2 = 'grey'; addHoverChangeImage = 'white'; checkMarkCol = 'grey'; cancelMarkCol = 'grey'; showNotif = 's'; displayPicture = 'empty_display_picture.png'">
+    <head>
+        <title>
+            {{userName}}
+        </title>
+    </head>
+    <body>
+        <div class = "sideBarContainer open-sidebar" >
+            <div id="sidebar">
+                <a href="#" onclick="changeDisplayPicture()">
                     <img src="/displayPictures/{{displayPicture}}" id="circle">
                 </a>
                 <ul>
@@ -79,18 +55,22 @@
                         </a>
                     </li>
                 </ul>
-            
-              
             </div>
-            <!-- /sidebar -->
-          
-            <!-- main right col -->
-            <div class="column col-sm-10 col-xs-11" id="main">
-
-                asdf
+            <div class="toggleButton">
+                <a href="#" data-toggle=".sideBarContainer" id="sidebar-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <a href="#" data-toggle=".sideBarContainer" id="add-user" onClick="showBox()" ng-mouseenter = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]" ng-mouseleave = "addHoverChangeImage = {'white':'red','red':'white'}[addHoverChangeImage]">
+                    <img src="/images/add_{{addHoverChangeImage}}.png"  width = "42px" height = "42px">
+                </a>
+                <div class = "map-container">
+                    <div id="map-canvas"></div>
+                </div>
             </div>
-            <!-- /main -->
-          <div id="light" class="white_content">
+        </div>
+        <div id="light" class="white_content">
 		<form name = "addUser" method = "post" action = "/addUser" accept-charset = "utf-8">
 			<input type="text" name="user_name" id="user_name" placeholder="username" required="true">
 			<input type = "submit" value = "addUser" name = "addUser" onclick = "hideBox()">			  
@@ -106,14 +86,7 @@
             <a  href="#" onclick = "hideDisplayPictureBox()">Close</a>
         </div>
         <div id="fade" class="black_overlay"></div>
-        </div>
-    </div>
-</div>
-	<!-- script references -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/scripts.js"></script>
-	</body>
+    </body>
 </html>
 <script>
 function showBox() {
