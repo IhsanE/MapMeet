@@ -486,6 +486,10 @@ app.post('/connectSocketConnection', function(req, res){
 });
 
 
+app.get('/', restrict, function(request, response){
+	response.sendfile(__dirname + '/Client/views/personalSite.html');
+});
+
 app.get('/angular.js', restrict, function(request, response){
 	response.sendfile(__dirname + '/Client/js/bower_components/angular/angular.js');
 });
