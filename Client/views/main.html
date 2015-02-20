@@ -34,7 +34,7 @@
             <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
               
               	<ul class="nav">
-          			<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+          			<li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><img src="/glyphicons/png/glyphicons-224-chevron-right.png" ></a></li>
             	</ul>
                
                 
@@ -49,8 +49,7 @@
                 </a>
                 <ul>
                     <li><a ng-click="showOnline = {'s':'d','d':'s'}[showOnline]" href="#">Online Friends ({{onlineCount()}})</a></li>
-                    <li ng-repeat="(name, object) in userData.onlineFriends track by name" ng-show = "showOnline == 's'"
-                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}') no-repeat left top;}">
+                    <li ng-repeat="(name, object) in userData.onlineFriends track by name" ng-show = "showOnline == 's'">
                         <a href="#" ng-init='init()' ng-controller = "friendMapViewCtrl" ng-click = "friendConnectRequest(name)" class="onlineFriendName" id="{{name}}">
                             <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
                             {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
@@ -58,11 +57,8 @@
                              src="/images/trash_{{deleteOnline1}}.png" width = "80px" height = "70px">
                        
                     </li>
-                    
-                    
                     <li><a ng-click="showOffline = {'s':'d','d':'s'}[showOffline]" href="#">Offline Friends ({{offlineCount()}})</a>    </li>
-                    <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'"
-                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}')  no-repeat left top;}>
+                    <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'">
                         <a href="#" id="offlineFriendName">
                             <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
                             {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
