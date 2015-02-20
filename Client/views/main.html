@@ -50,7 +50,7 @@
                 <ul>
                     <li><a ng-click="showOnline = {'s':'d','d':'s'}[showOnline]" href="#">Online Friends ({{onlineCount()}})</a></li>
                     <li ng-repeat="(name, object) in userData.onlineFriends track by name" ng-show = "showOnline == 's'"
-                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}')}">
+                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}') no-repeat left top;}">
                         <a href="#" ng-init='init()' ng-controller = "friendMapViewCtrl" ng-click = "friendConnectRequest(name)" class="onlineFriendName" id="{{name}}">
                             <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
                             {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
@@ -62,7 +62,7 @@
                     
                     <li><a ng-click="showOffline = {'s':'d','d':'s'}[showOffline]" href="#">Offline Friends ({{offlineCount()}})</a>    </li>
                     <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'"
-                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}')}>
+                        ng-style="{'background' : url('/displayPictures/{{object['display_picture']}}')  no-repeat left top;}>
                         <a href="#" id="offlineFriendName">
                             <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
                             {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
