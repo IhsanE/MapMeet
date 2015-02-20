@@ -58,7 +58,8 @@
                        
                     </li>
                     <li><a ng-click="showOffline = {'s':'d','d':'s'}[showOffline]" href="#">Offline Friends ({{offlineCount()}})</a>    </li>
-                    <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'">
+                    <li ng-repeat = "(name, object) in userData.offlineFriends track by name" ng-show = "showOffline == 's'"
+                        ng-style="{'background-image':'url(/displayPictures/{{object['display_picture']}})', 'background-repeat' : 'no-repeat', 'background-position': '0px center', 'padding-left':'15px' }">
                         <a href="#" id="offlineFriendName">
                             <img src="/displayPictures/{{object['display_picture']}}" id="miniCircle">
                             {{(object.first_name + " " + object.last_name) | limitTo : 8}}</a>
