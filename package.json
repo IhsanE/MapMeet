@@ -11,7 +11,7 @@
     "express": "^4.10.6",
     "express-session": "^1.9.3",
     "fs-extra": "^0.13.0",
-    "mongodb": "^1.4.25",
+    "mongodb": "^3.6.2",
     "ngrok": "^0.1.98",
     "mongoose": "^3.8.21",
     "request": "^2.51.0",
