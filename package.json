@@ -13,7 +13,7 @@
     "fs-extra": "^0.13.0",
     "mongodb": "^1.4.25",
     "ngrok": "^0.1.98",
-    "mongoose": "^3.8.21",
+    "mongoose": "^5.10.5",
     "request": "^2.51.0",
     "socket.io": "^1.2.1"
   },
