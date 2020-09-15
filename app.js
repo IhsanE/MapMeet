@@ -17,7 +17,6 @@ var socketRooms = {};
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-var uri = 'mongodb://fastftw:toogood4u@ds049537.mongolab.com:49537/map_meet';
 
 app.set('port', (process.env.PORT || 3000));
 
